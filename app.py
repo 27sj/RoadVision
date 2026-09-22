@@ -23,7 +23,6 @@ if str(project_root) not in sys.path:
 
 from src.pipeline import RoadVisionPipeline, load_config
 
-
 # --------------------------------------------------------------------------- #
 #  Page configuration                                                          #
 # --------------------------------------------------------------------------- #
@@ -133,7 +132,7 @@ if uploaded_file is not None:
 
         def progress_callback(cur, total):
             pct = min(cur / total, 1.0) if total > 0 else 0.0
-            progress_bar.progress(pct, text=f"正在处理: {cur}/{total} 帧 ({pct*100:.1f}%)")
+            progress_bar.progress(pct, text=f"正在处理: {cur}/{total} 帧 ({pct * 100:.1f}%)")
 
         try:
             result = pipeline.process_video(

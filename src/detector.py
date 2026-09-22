@@ -34,17 +34,17 @@ class Detection:
 class VehicleDetector:
     """YOLO-based vehicle detector.
 
-    Loads a pretrained YOLO model and runs combined detection + ByteTrack tracking
-    on video frames via ``model.track()``.
+    Loads a pretrained YOLO model and runs combined detection + ByteTrack tracking on video frames via
+    ``model.track()``.
 
     Args:
-        model_path (str): Model name or path, e.g. ``"yolo11n.pt"``.  Auto-downloads on first use.
+        model_path (str): Model name or path, e.g. ``"yolo11n.pt"``. Auto-downloads on first use.
         conf (float): Confidence threshold (detections below this are discarded).
         iou (float): NMS IoU threshold.
         device (str): ``""`` for auto, ``"cpu"`` for CPU, ``"0"`` for GPU 0.
-        classes (list[int] | None): COCO class IDs to keep.  ``None`` = all classes.
-            Default ``[2, 3, 5, 7]`` (car, motorcycle, bus, truck).
-        tracker (str): Tracker config name.  Default ``"bytetrack.yaml"``.
+        classes (list[int] | None): COCO class IDs to keep. ``None`` = all classes. Default ``[2, 3, 5, 7]`` (car,
+            motorcycle, bus, truck).
+        tracker (str): Tracker config name. Default ``"bytetrack.yaml"``.
     """
 
     def __init__(
@@ -108,7 +108,8 @@ class VehicleDetector:
         clss = boxes.cls.cpu().numpy() if hasattr(boxes.cls, "cpu") else np.asarray(boxes.cls)
         ids_raw = boxes.id
         ids = (
-            ids_raw.cpu().numpy() if ids_raw is not None and hasattr(ids_raw, "cpu")
+            ids_raw.cpu().numpy()
+            if ids_raw is not None and hasattr(ids_raw, "cpu")
             else (np.asarray(ids_raw) if ids_raw is not None else None)
         )
 
