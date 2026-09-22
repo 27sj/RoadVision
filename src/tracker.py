@@ -18,12 +18,12 @@ from src.detector import Detection
 
 def _box_center(xyxy: np.ndarray) -> tuple[float, float]:
     """Return the bottom-centre point of a bounding box (ground contact point)."""
-    x1, y1, x2, y2 = xyxy
+    x1, _y1, x2, y2 = xyxy
     return ((x1 + x2) / 2.0, y2)
 
 
 class TrajectoryManager:
-    """Maintain a rolling history of each track's centre position.
+    """Maintain a rolling history of each track's center position.
 
     Args:
         max_length (int): Maximum number of points to keep per track ID.
@@ -37,7 +37,7 @@ class TrajectoryManager:
         self._prev_centres: dict[int, tuple[float, float]] = {}
 
     def update(self, detections: list[Detection]) -> None:
-        """Append the current centre of each tracked vehicle to its trail.
+        """Append the current center of each tracked vehicle to its trail.
 
         Detections without a valid track_id (track_id == -1) are ignored.
         """
@@ -61,12 +61,12 @@ class TrajectoryManager:
         return {tid: list(trail) for tid, trail in self._trails.items()}
 
     def get_prev_centre(self, track_id: int) -> tuple[float, float] | None:
-        """Return the previous centre for *track_id*, or None if none recorded."""
+        """Return the previous center for *track_id*, or None if none recorded."""
         return self._prev_centres.get(track_id)
 
-    def set_prev_centre(self, track_id: int, centre: tuple[float, float]) -> None:
-        """Record the previous-frame centre for *track_id*."""
-        self._prev_centres[track_id] = centre
+    def set_prev_centre(self, track_id: int, center: tuple[float, float]) -> None:
+        """Record the previous-frame center for *track_id*."""
+        self._prev_centres[track_id] = center
 
     def clear(self) -> None:
         """Reset all trajectory state (call before processing a new video)."""

@@ -5,33 +5,33 @@ model:
   # Pretrained YOLO model. Options: yolo11n.pt, yolo11s.pt, yolov8n.pt, yolov8s.pt, etc.
   # The model auto-downloads from the official release on first run.
   path: yolo11n.pt
-  device: ""  # "" = auto-select, "cpu" = CPU only, "0" = GPU 0
+  device: "" # "" = auto-select, "cpu" = CPU only, "0" = GPU 0
 
 detection:
-  conf_threshold: 0.3      # Confidence threshold (0-1); lower = more detections but more false positives
-  iou_threshold: 0.5       # NMS IoU threshold for suppressing overlapping boxes
-  vehicle_classes: [2, 3, 5, 7]  # COCO class IDs: 2=car, 3=motorcycle, 5=bus, 7=truck
+  conf_threshold: 0.3 # Confidence threshold (0-1); lower = more detections but more false positives
+  iou_threshold: 0.5 # NMS IoU threshold for suppressing overlapping boxes
+  vehicle_classes: [2, 3, 5, 7] # COCO class IDs: 2=car, 3=motorcycle, 5=bus, 7=truck
 
 tracking:
-  tracker: bytetrack.yaml  # ByteTrack config (built into ultralytics)
-  persist: true            # Keep tracker state across frames (required for stable IDs)
-  trajectory_length: 50    # Max trajectory points to keep per vehicle (for drawing trails)
+  tracker: bytetrack.yaml # ByteTrack config (built into ultralytics)
+  persist: true # Keep tracker state across frames (required for stable IDs)
+  trajectory_length: 50 # Max trajectory points to keep per vehicle (for drawing trails)
 
 counting:
   # Virtual counting line position as a fraction of frame dimension (0.0-1.0).
   # For a horizontal line (vehicles moving up/down), specify y as fraction of height.
   # For a vertical line (vehicles moving left/right), specify x as fraction of width.
-  line_orientation: horizontal  # "horizontal" or "vertical"
-  line_position: 0.5            # 0.5 = middle of the frame
+  line_orientation: horizontal # "horizontal" or "vertical"
+  line_position: 0.5 # 0.5 = middle of the frame
 
 traffic:
-  time_window_minutes: 60  # Time window (in minutes) for traffic flow rate calculation (veh/h)
+  time_window_minutes: 60 # Time window (in minutes) for traffic flow rate calculation (veh/h)
 
 output:
-  save_dir: outputs          # Directory for output files
-  save_video: true           # Save annotated video
-  save_csv: true             # Save per-vehicle CSV statistics
-  video_codec: mp4v          # OpenCV fourcc codec (mp4v, XVID, etc.)
+  save_dir: outputs # Directory for output files
+  save_video: true # Save annotated video
+  save_csv: true # Save per-vehicle CSV statistics
+  video_codec: mp4v # OpenCV fourcc codec (mp4v, XVID, etc.)
 
 # Human-readable class names (COCO subset)
 class_names:

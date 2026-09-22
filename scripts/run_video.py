@@ -26,14 +26,19 @@ def parse_args() -> argparse.Namespace:
         description="RoadVision: Road vehicle detection, tracking, and traffic flow analysis.",
     )
     p.add_argument("--video", required=True, help="Path to the input video file.")
-    p.add_argument("--config", default="configs/config.yaml", help="Path to config.yaml (default: configs/config.yaml).")
+    p.add_argument(
+        "--config", default="configs/config.yaml", help="Path to config.yaml (default: configs/config.yaml)."
+    )
     p.add_argument("--model", default=None, help="Override model path (e.g. yolo11s.pt).")
     p.add_argument("--conf", type=float, default=None, help="Override confidence threshold (0-1).")
     p.add_argument("--device", default=None, help='Override device ("" for auto, "cpu", "0").')
-    p.add_argument("--line-orientation", default=None, choices=["horizontal", "vertical"],
-                   help="Override counting line orientation.")
-    p.add_argument("--line-position", type=float, default=None,
-                   help="Override counting line position (0.0-1.0).")
+    p.add_argument(
+        "--line-orientation",
+        default=None,
+        choices=["horizontal", "vertical"],
+        help="Override counting line orientation.",
+    )
+    p.add_argument("--line-position", type=float, default=None, help="Override counting line position (0.0-1.0).")
     p.add_argument("--output-dir", default=None, help="Override output directory.")
     p.add_argument("--no-save-video", action="store_true", help="Skip saving annotated video.")
     p.add_argument("--no-save-csv", action="store_true", help="Skip saving CSV statistics.")

@@ -2,7 +2,7 @@
 classifies counts by vehicle type and travel direction.
 
 The counter works by comparing each vehicle's position between consecutive
-frames.  When the vehicle's centre crosses the virtual line, a count event is
+frames.  When the vehicle's center crosses the virtual line, a count event is
 recorded with: track_id, class name, direction ("up"/"down" or
 "left"/"right"), timestamp, and the frame number.
 """
@@ -52,12 +52,10 @@ class VehicleCounter:
     """Virtual-line crossing counter.
 
     Args:
-        orientation (str): "horizontal" (vehicles cross left-right or
-            counting up/down) or "vertical" (vehicles cross top-bottom or
-            left/right).
-        line_position (float): Line position as a fraction of the frame
-            dimension (0.0-1.0).  For horizontal lines this is a fraction of
-            height; for vertical lines, a fraction of width.
+        orientation (str): "horizontal" (vehicles cross left-right or counting up/down) or "vertical" (vehicles cross
+            top-bottom or left/right).
+        line_position (float): Line position as a fraction of the frame dimension (0.0-1.0). For horizontal lines this
+            is a fraction of height; for vertical lines, a fraction of width.
         class_names (dict[int, str]): Mapping from COCO class ID to name.
     """
 
@@ -98,7 +96,7 @@ class VehicleCounter:
             cx, cy = _box_center(det.xyxy)
             prev = traj.get_prev_centre(tid)
 
-            # Always update the previous centre for the next frame
+            # Always update the previous center for the next frame
             traj.set_prev_centre(tid, (cx, cy))
 
             if prev is None:

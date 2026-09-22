@@ -63,7 +63,7 @@ traj.update([det_f0])
 counter.update([det_f0], traj, 0, 0.0, frame_h, frame_w)
 
 traj.update([det_f1])
-events = counter.update([det_f1], traj, 1, 1/30, frame_h, frame_w)
+events = counter.update([det_f1], traj, 1, 1 / 30, frame_h, frame_w)
 
 assert len(events) == 1, f"Expected 1 event, got {len(events)}"
 assert events[0].direction == "down", f"Expected 'down', got {events[0].direction}"
@@ -80,7 +80,7 @@ det_f1_up = Detection(track_id=2, cls_id=7, conf=0.85, xyxy=np.array([300, 200, 
 traj.update([det_f0_up])
 counter.update([det_f0_up], traj, 0, 0.0, frame_h, frame_w)
 traj.update([det_f1_up])
-events = counter.update([det_f1_up], traj, 1, 1/30, frame_h, frame_w)
+events = counter.update([det_f1_up], traj, 1, 1 / 30, frame_h, frame_w)
 
 assert len(events) == 1
 assert events[0].direction == "up", f"Expected 'up', got {events[0].direction}"
@@ -96,9 +96,9 @@ det_b = Detection(track_id=3, cls_id=2, conf=0.9, xyxy=np.array([100, 250, 150, 
 traj.update([det_a])
 counter.update([det_a], traj, 0, 0.0, frame_h, frame_w)
 traj.update([det_b])
-counter.update([det_b], traj, 1, 1/30, frame_h, frame_w)
+counter.update([det_b], traj, 1, 1 / 30, frame_h, frame_w)
 traj.update([det_b])
-events2 = counter.update([det_b], traj, 2, 2/30, frame_h, frame_w)
+events2 = counter.update([det_b], traj, 2, 2 / 30, frame_h, frame_w)
 assert len(events2) == 0, "Duplicate count should not happen"
 print("  [PASS] Deduplication works (same ID counted only once)")
 
@@ -123,9 +123,10 @@ with tempfile.NamedTemporaryFile(suffix=".csv", delete=False, mode="w") as f:
 analyzer.export_csv(csv_path, fps=30.0)
 assert os.path.exists(csv_path)
 import csv as csv_mod
+
 with open(csv_path, encoding="utf-8") as f:
     rows = list(csv_mod.reader(f))
-print(f"  CSV exported: {len(rows)-1} data rows (header + {len(rows)-1} events)")
+print(f"  CSV exported: {len(rows) - 1} data rows (header + {len(rows) - 1} events)")
 assert len(rows) >= 2  # at least header + 1 event
 print(f"  Header: {rows[0]}")
 print("  [PASS] CSV export works")
@@ -152,8 +153,9 @@ dets = [
 ]
 traj2 = TrajectoryManager(max_length=10)
 traj2.update(dets)
-counter2 = VehicleCounter(orientation="horizontal", line_position=0.5,
-                           class_names={2: "car", 3: "motorcycle", 5: "bus", 7: "truck"})
+counter2 = VehicleCounter(
+    orientation="horizontal", line_position=0.5, class_names={2: "car", 3: "motorcycle", 5: "bus", 7: "truck"}
+)
 viz.draw_frame(frame, dets, traj2, counter2, 0, 30.0)
 
 # Verify frame was modified (not all grey anymore)
@@ -195,11 +197,12 @@ print("=" * 60)
 print("Test 6: Module imports")
 print("=" * 60)
 # These don't require torch
-from src.counter import VehicleCounter, CountEvent, CountSummary
-from src.detector import VehicleDetector, Detection
+from src.counter import VehicleCounter
+from src.detector import Detection
 from src.tracker import TrajectoryManager
-from src.traffic_analyzer import TrafficAnalyzer, FlowRate
+from src.traffic_analyzer import TrafficAnalyzer
 from src.visualizer import Visualizer
+
 print("  All src modules imported successfully")
 print("  [PASS] Module imports work")
 
