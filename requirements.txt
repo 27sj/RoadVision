@@ -3,7 +3,7 @@
 
 ultralytics>=8.0.0
 streamlit>=1.28.0
-pandas>=2.0.0
+pandas>=2.3.3
 pyyaml>=6.0
 opencv-python>=4.7.0
 numpy>=1.23.0
