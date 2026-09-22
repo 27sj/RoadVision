@@ -12,13 +12,12 @@ from pathlib import Path
 from typing import Any
 
 import cv2
-import numpy as np
 import yaml
 
 from src.counter import VehicleCounter
 from src.detector import VehicleDetector
-from src.traffic_analyzer import TrafficAnalyzer
 from src.tracker import TrajectoryManager
+from src.traffic_analyzer import TrafficAnalyzer
 from src.visualizer import Visualizer
 
 
@@ -116,12 +115,10 @@ class RoadVisionPipeline:
 
         Args:
             video_path: Path to the input video.
-            output_video_path: Path for the annotated output video. If None,
-                uses ``<save_dir>/<input_name>_annotated.mp4``.
-            output_csv_path: Path for the CSV statistics. If None, uses
-                ``<save_dir>/<input_name>_stats.csv``.
-            progress_callback: Optional callable(current_frame, total_frames)
-                for progress reporting.
+            output_video_path: Path for the annotated output video. If None, uses
+                ``<save_dir>/<input_name>_annotated.mp4``.
+            output_csv_path: Path for the CSV statistics. If None, uses ``<save_dir>/<input_name>_stats.csv``.
+            progress_callback: Optional callable(current_frame, total_frames) for progress reporting.
 
         Returns:
             ProcessResult with all statistics.
@@ -172,9 +169,7 @@ class RoadVisionPipeline:
             self.counter.update(detections, self.trajectory, frame_idx, timestamp, frame_h, frame_w)
 
             # Visualize
-            self.visualizer.draw_frame(
-                frame, detections, self.trajectory, self.counter, frame_idx, fps
-            )
+            self.visualizer.draw_frame(frame, detections, self.trajectory, self.counter, frame_idx, fps)
 
             if writer is not None:
                 writer.write(frame)

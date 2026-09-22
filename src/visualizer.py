@@ -10,16 +10,16 @@ from __future__ import annotations
 import cv2
 import numpy as np
 
-from src.counter import CountSummary, VehicleCounter
+from src.counter import VehicleCounter
 from src.detector import Detection
 from src.tracker import TrajectoryManager
 
-# Class colour palette (BGR) — fixed per class for visual consistency.
+# Class color palette (BGR) — fixed per class for visual consistency.
 CLASS_COLORS: dict[int, tuple[int, int, int]] = {
-    2: (0, 255, 128),   # car      — green
-    3: (0, 165, 255),   # motorcycle — orange
-    5: (0, 0, 255),     # bus      — red
-    7: (255, 0, 0),     # truck    — blue
+    2: (0, 255, 128),  # car      — green
+    3: (0, 165, 255),  # motorcycle — orange
+    5: (0, 0, 255),  # bus      — red
+    7: (255, 0, 0),  # truck    — blue
 }
 DEFAULT_COLOR = (200, 200, 200)
 
@@ -97,7 +97,7 @@ class Visualizer:
     def _draw_trails(self, img: np.ndarray, traj: TrajectoryManager) -> None:
         """Draw fading motion trails for each tracked vehicle."""
         all_trails = traj.get_all_trails()
-        for tid, points in all_trails.items():
+        for points in all_trails.values():
             if len(points) < 2:
                 continue
             n = len(points)
@@ -105,10 +105,14 @@ class Visualizer:
                 # Fade older points toward transparent
                 alpha = i / n
                 thickness = max(1, int(2 * alpha))
-                cv2.line(img,
-                         (int(points[i - 1][0]), int(points[i - 1][1])),
-                         (int(points[i][0]), int(points[i][1])),
-                         (0, 200, 255), thickness, cv2.LINE_AA)
+                cv2.line(
+                    img,
+                    (int(points[i - 1][0]), int(points[i - 1][1])),
+                    (int(points[i][0]), int(points[i][1])),
+                    (0, 200, 255),
+                    thickness,
+                    cv2.LINE_AA,
+                )
 
     def _draw_detection(self, img: np.ndarray, det: Detection) -> None:
         """Draw a bounding box with class name, confidence, and track ID."""
@@ -133,8 +137,7 @@ class Visualizer:
         # Ensure the label stays within the frame
         y = max(y, th + 2)
         cv2.rectangle(img, (x, y - th - baseline), (x + tw + 4, y), color, -1)
-        cv2.putText(img, label, (x + 2, y - baseline), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-                    (0, 0, 0), 1, cv2.LINE_AA)
+        cv2.putText(img, label, (x + 2, y - baseline), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
 
     def _draw_counting_line(self, img: np.ndarray) -> None:
         """Draw the virtual counting line across the frame."""
@@ -143,13 +146,11 @@ class Visualizer:
         if self.orientation == "horizontal":
             ly = int(self.line_position * h)
             cv2.line(img, (0, ly), (w, ly), line_color, 2, cv2.LINE_AA)
-            cv2.putText(img, "Counting Line", (10, ly - 8),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, line_color, 1, cv2.LINE_AA)
+            cv2.putText(img, "Counting Line", (10, ly - 8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, line_color, 1, cv2.LINE_AA)
         else:
             lx = int(self.line_position * w)
             cv2.line(img, (lx, 0), (lx, h), line_color, 2, cv2.LINE_AA)
-            cv2.putText(img, "Counting Line", (lx + 8, 20),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, line_color, 1, cv2.LINE_AA)
+            cv2.putText(img, "Counting Line", (lx + 8, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, line_color, 1, cv2.LINE_AA)
 
     def _draw_hud(self, img: np.ndarray, counter: VehicleCounter, frame_idx: int, fps: float) -> None:
         """Draw a semi-transparent stats panel in the top-right corner."""
@@ -169,7 +170,7 @@ class Visualizer:
         panel_w = 260
         line_h = 22
         panel_h = line_h * len(lines) + 10
-        h, w = img.shape[:2]
+        _h, w = img.shape[:2]
         x0 = w - panel_w - 10
         y0 = 10
         overlay = img.copy()
@@ -177,5 +178,13 @@ class Visualizer:
         cv2.addWeighted(overlay, 0.6, img, 0.4, 0, img)
 
         for i, text in enumerate(lines):
-            cv2.putText(img, text, (x0 + 8, y0 + 20 + i * line_h),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1, cv2.LINE_AA)
+            cv2.putText(
+                img,
+                text,
+                (x0 + 8, y0 + 20 + i * line_h),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.45,
+                (255, 255, 255),
+                1,
+                cv2.LINE_AA,
+            )

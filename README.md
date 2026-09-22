@@ -23,14 +23,14 @@ RoadVision 是一个端到端的计算机视觉项目，用于对道路监控视
 
 ## 🛠 技术栈
 
-| 组件 | 说明 |
-|------|------|
+| 组件                                                             | 说明                                   |
+| ---------------------------------------------------------------- | -------------------------------------- |
 | [YOLO (Ultralytics)](https://github.com/ultralytics/ultralytics) | 目标检测，使用预训练模型（如 YOLO11n） |
-| [ByteTrack](https://github.com/ifzhang/ByteTrack) | 多目标跟踪算法，内置于 Ultralytics |
-| [OpenCV](https://opencv.org/) | 视频读写、图像绘制 |
-| [Streamlit](https://streamlit.io/) | Web 界面 |
-| [PyTorch](https://pytorch.org/) | 深度学习后端 |
-| Python | 编程语言（>=3.8） |
+| [ByteTrack](https://github.com/ifzhang/ByteTrack)                | 多目标跟踪算法，内置于 Ultralytics     |
+| [OpenCV](https://opencv.org/)                                    | 视频读写、图像绘制                     |
+| [Streamlit](https://streamlit.io/)                               | Web 界面                               |
+| [PyTorch](https://pytorch.org/)                                  | 深度学习后端                           |
+| Python                                                           | 编程语言（>=3.8）                      |
 
 ---
 
@@ -100,14 +100,14 @@ RoadVision/
 
 ### 模块职责说明
 
-| 模块 | 职责 |
-|------|------|
-| `src/detector.py` | 加载 YOLO 预训练模型，对每帧执行检测+跟踪，返回 `Detection` 列表 |
-| `src/tracker.py` | 管理每辆车的轨迹历史（中心点队列），供轨迹绘制和穿线检测使用 |
-| `src/counter.py` | 通过比较前后帧位置检测虚拟线穿越，判断方向，按类型和方向分类计数 |
-| `src/traffic_analyzer.py` | 按时间窗口计算 veh/h 流量，导出 CSV 统计文件 |
-| `src/visualizer.py` | 在帧上绘制检测框、类别、置信度、ID、轨迹、检测线和统计 HUD |
-| `src/pipeline.py` | 编排以上模块，完成端到端视频处理 |
+| 模块                      | 职责                                                             |
+| ------------------------- | ---------------------------------------------------------------- |
+| `src/detector.py`         | 加载 YOLO 预训练模型，对每帧执行检测+跟踪，返回 `Detection` 列表 |
+| `src/tracker.py`          | 管理每辆车的轨迹历史（中心点队列），供轨迹绘制和穿线检测使用     |
+| `src/counter.py`          | 通过比较前后帧位置检测虚拟线穿越，判断方向，按类型和方向分类计数 |
+| `src/traffic_analyzer.py` | 按时间窗口计算 veh/h 流量，导出 CSV 统计文件                     |
+| `src/visualizer.py`       | 在帧上绘制检测框、类别、置信度、ID、轨迹、检测线和统计 HUD       |
+| `src/pipeline.py`         | 编排以上模块，完成端到端视频处理                                 |
 
 ---
 
@@ -124,7 +124,7 @@ cd RoadVision
 
 ```bash
 python -m venv venv
-source venv/bin/activate        # Linux / macOS
+source venv/bin/activate # Linux / macOS
 # venv\Scripts\activate         # Windows
 ```
 
@@ -164,18 +164,18 @@ python scripts/run_video.py --video road.mp4 --output-dir my_results
 
 **所有参数：**
 
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--video` | （必填） | 输入视频路径 |
-| `--config` | `configs/config.yaml` | 配置文件路径 |
-| `--model` | `yolo11n.pt` | 模型名称/路径 |
-| `--conf` | `0.3` | 置信度阈值 |
-| `--device` | `auto` | 推理设备 (auto/cpu/0) |
-| `--line-orientation` | `horizontal` | 检测线方向 (horizontal/vertical) |
-| `--line-position` | `0.5` | 检测线位置 (0.0-1.0) |
-| `--output-dir` | `outputs` | 输出目录 |
-| `--no-save-video` | `False` | 不保存标注视频 |
-| `--no-save-csv` | `False` | 不保存 CSV |
+| 参数                 | 默认值                | 说明                             |
+| -------------------- | --------------------- | -------------------------------- |
+| `--video`            | （必填）              | 输入视频路径                     |
+| `--config`           | `configs/config.yaml` | 配置文件路径                     |
+| `--model`            | `yolo11n.pt`          | 模型名称/路径                    |
+| `--conf`             | `0.3`                 | 置信度阈值                       |
+| `--device`           | `auto`                | 推理设备 (auto/cpu/0)            |
+| `--line-orientation` | `horizontal`          | 检测线方向 (horizontal/vertical) |
+| `--line-position`    | `0.5`                 | 检测线位置 (0.0-1.0)             |
+| `--output-dir`       | `outputs`             | 输出目录                         |
+| `--no-save-video`    | `False`               | 不保存标注视频                   |
+| `--no-save-csv`      | `False`               | 不保存 CSV                       |
 
 ### 方式二：Streamlit Web 界面
 
@@ -184,6 +184,7 @@ streamlit run app.py
 ```
 
 浏览器会自动打开 `http://localhost:8501`，在界面上：
+
 1. 上传道路视频
 2. 在左侧边栏配置模型、置信度、检测线参数
 3. 点击"开始分析"按钮
@@ -199,6 +200,7 @@ streamlit run app.py
 3. 处理结果保存在 `outputs/` 目录
 
 **推荐测试视频来源：**
+
 - 行车记录仪视频
 - 道路监控摄像头视频
 - 公开的交通视频数据集（如 [UA-DETRAC](http://detrac-db.rit.albany.edu/)）
@@ -220,6 +222,7 @@ YOLO（You Only Look Once）是一种单阶段目标检测算法。它将输入�
 ### 2. ByteTrack 多目标跟踪
 
 ByteTrack 是一种简单高效的多人跟踪算法。它的核心思想是：**即使是低置信度的检测结果也可能是有用的**。ByteTrack 分两阶段进行数据关联：
+
 - 第一阶段：用高置信度检测结果与已有轨迹进行匹配（基于 IoU）
 - 第二阶段：用低置信度检测结果与未匹配的轨迹进行匹配
 
@@ -228,6 +231,7 @@ ByteTrack 是一种简单高效的多人跟踪算法。它的核心思想是：*
 ### 3. 虚拟检测线计数
 
 在画面中设置一条虚拟检测线（水平或垂直）。对每辆跟踪到的车辆，比较其前后帧的中心点位置：
+
 - 如果车辆的中心点从前一帧到当前帧穿过了检测线，则计为一次穿越事件
 - 根据穿越方向（上/下 或 左/右）对车辆进行分类
 - 每辆车只计一次（基于 track ID 去重）
@@ -249,6 +253,7 @@ ByteTrack 是一种简单高效的多人跟踪算法。它的核心思想是：*
 ### 标注视频
 
 输出的视频在每一帧上绘制以下信息：
+
 - **检测框**：不同类别使用不同颜色（car=绿色, motorcycle=橙色, bus=红色, truck=蓝色）
 - **标签**：`ID:xx car 0.85`（跟踪ID + 类别名 + 置信度）
 - **运动轨迹**：每辆车的历史位置点连线（颜色渐变，越远越淡）
@@ -260,7 +265,7 @@ ByteTrack 是一种简单高效的多人跟踪算法。它的核心思想是：*
 每行记录一次穿线事件：
 
 | track_id | class | direction | frame_idx | timestamp_s |
-|----------|-------|-----------|-----------|-------------|
+| -------- | ----- | --------- | --------- | ----------- |
 | 1        | car   | down      | 142       | 4.733       |
 | 2        | truck | down      | 185       | 6.167       |
 | 3        | car   | up        | 203       | 6.767       |

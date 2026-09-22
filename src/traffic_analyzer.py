@@ -32,9 +32,8 @@ class TrafficAnalyzer:
     """Compute traffic flow statistics from crossing events.
 
     Args:
-        window_minutes (int): Length of each time window in minutes.
-            The final ``veh/h`` rate is computed over the entire video
-            duration, and also per-window for trend analysis.
+        window_minutes (int): Length of each time window in minutes. The final ``veh/h`` rate is computed over the
+            entire video duration, and also per-window for trend analysis.
     """
 
     def __init__(self, window_minutes: int = 60) -> None:
