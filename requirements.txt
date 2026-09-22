@@ -1,7 +1,7 @@
 # RoadVision — Python dependencies
 # Install with: pip install -r requirements.txt
 
-ultralytics>=8.0.0
+ultralytics>=8.4.155
 streamlit>=1.28.0
 pandas>=2.0.0
 pyyaml>=6.0
